@@ -1,0 +1,47 @@
+html {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif; //"Secular One"
+}
+
+/* these color vars do not play ball in this file */
+body {
+  background-color: #fff;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 50px;
+}
+
+body.dark {
+  background-color: #282D33;
+}
+
+h1 {
+  margin: 0px;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  font-size: 16px;
+}
+
+a.dark:visited {
+  color: pink;
+}
+
+.footer {
+  padding: 10px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 14px;
+}

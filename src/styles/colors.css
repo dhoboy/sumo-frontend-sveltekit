@@ -1,0 +1,19 @@
+:root {
+	// universal
+	--white: #fff;
+	--black: #000;
+	--gray-black: #333;
+	--sun-yellow: #fed976;
+	--moon-blue: #a6bddb;
+
+	// light theme
+	--border-gray-lt: #ccc;
+	--red-lt: #bd0026;
+
+	// dark theme
+	--background-gray-dk: #282D33;
+	--text-gray-dk: #adbac7; //#bcbddc; //#bdbdbd;
+	--red-dk: #800026;
+	--header-dk: #223333;
+}
+
