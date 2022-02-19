@@ -46,5 +46,13 @@
 	.tournament-summary {
 		border: 1px solid;
 		border-radius: 4px;
+		margin-bottom: 50px;
+	}
+	a {
+		font-size: 22px;
+		text-decoration: none;
+	}
+	h2 {
+    margin: 15px 0;
 	}
 </style>

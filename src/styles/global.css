@@ -6,9 +6,8 @@ html {
   font-family: "Roboto", sans-serif; //"Secular One"
 }
 
-/* these color vars do not play ball in this file */
 body {
-  background-color: #fff;
+  background-color: var(--white);
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -17,7 +16,7 @@ body {
 }
 
 body.dark {
-  background-color: #282D33;
+  background-color: var(--background-gray-dk);
 }
 
 h1 {
@@ -28,6 +27,7 @@ h1 {
 
 h2 {
   font-size: 18px;
+  margin: 0px;
 }
 
 p {
@@ -35,9 +35,13 @@ p {
   font-size: 16px;
 }
 
-a.dark:visited {
-  color: pink;
+a.dark {
+  color: var(--text-gray-dk);
 }
+
+/* a.dark:visited { */
+/*   color: var(--visited-link); */
+/* } */
 
 .footer {
   padding: 10px;

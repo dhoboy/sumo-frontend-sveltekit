@@ -50,7 +50,7 @@
 		font-family: "Secular One", sans-serif;
     text-decoration: none;
 		font-size: 22px;
-		padding-bottom: 5px;
+		padding-bottom: 2px;
 	}
 	a.active {
     border-bottom: 1px solid;
