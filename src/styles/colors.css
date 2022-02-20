@@ -13,7 +13,9 @@
 
 	/* dark theme */
 	--background-gray-dk: #282D33;
+	--background-md-gray-dk: #5B6775;
 	--text-gray-dk: #adbac7; //#bcbddc; //#bdbdbd;
+	--text-md-gray-dk: #eee;
 	--red-dk: #800026;
 	--header-dk: #223333;
 	--visited-link: pink;
