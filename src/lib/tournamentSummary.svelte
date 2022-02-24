@@ -1,7 +1,7 @@
 <script>
   // import re-usable components and stores
-  import { theme } from "$lib/shared/stores/theme.js";
-	import { monthMap } from "$lib/shared/utils.js";
+  import { theme } from "$lib/stores/theme.js";
+	import { monthMap } from "$lib/utils.js";
 	import Table from "$lib/table.svelte";
 
 	// passes props to the view component below
@@ -47,6 +47,9 @@
 		border: 1px solid;
 		border-radius: 4px;
 		margin-bottom: 50px;
+	}
+	.tournament-summary :global(.table .table-headers .header-row .rank) {
+		min-width: 150px;
 	}
 	a {
 		font-size: 22px;

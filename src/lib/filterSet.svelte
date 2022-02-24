@@ -1,5 +1,5 @@
 <script>
-import { theme } from "$lib/shared/stores/theme.js";
+import { theme } from "$lib/stores/theme.js";
 
 /*
  *  Renders out a group of filters

@@ -1,5 +1,5 @@
 <script>
-import { theme } from "$lib/shared/stores/theme.js";
+import { theme } from "$lib/stores/theme.js";
 
 /*
  *	Renders out a Table.
@@ -45,7 +45,7 @@ $: displayData = data.sort((a, b) => {
 	<ul class={`table-headers ${$theme}`}>
 		<li class="header-row">
 			{#each headers as {colKey, display}}
-				<div key={colKey} class="header-entry" on:click={() => handleSortClick({ colKey })}>
+				<div key={colKey} class={`header-entry ${colKey}`} on:click={() => handleSortClick({ colKey })}>
 	        <span>{display}</span>
 					{#if sort.colKey === colKey && sort.direction === "asc"}
             <span key={sort.direction}>

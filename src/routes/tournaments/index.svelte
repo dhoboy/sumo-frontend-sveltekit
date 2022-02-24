@@ -15,8 +15,8 @@
 <script>
 	// import re-usable components and stores
 	import { slide } from 'svelte/transition';
-  import { theme } from "$lib/shared/stores/theme.js";
-	import { monthMap } from "$lib/shared/utils.js";
+  import { theme } from "$lib/stores/theme.js";
+	import { monthMap } from "$lib/utils.js";
 	import FilterSet from "$lib/filterSet.svelte";
 	import TournamentSummary from "$lib/tournamentSummary.svelte";
 

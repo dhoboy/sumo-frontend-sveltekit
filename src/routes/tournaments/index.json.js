@@ -1,4 +1,4 @@
-import { getTournament } from './[year].[month].json.js';
+import { getTournament } from './[year]/[month].json.js';
 
 /* Util functions */
 // callers await this and get the tournaments response

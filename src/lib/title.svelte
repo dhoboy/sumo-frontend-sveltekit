@@ -1,5 +1,5 @@
 <script>
-  import { theme } from "$lib/shared/stores/theme.js";
+  import { theme } from "$lib/stores/theme.js";
 	import { page } from "$app/stores";
 	$: pathname = $page?.url?.pathname || "";
 </script>
