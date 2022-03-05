@@ -35,6 +35,14 @@ p {
   font-size: 16px;
 }
 
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
 a.dark {
   color: var(--text-gray-dk);
 }
@@ -42,6 +50,13 @@ a.dark {
 /* a.dark:visited { */
 /*   color: var(--visited-link); */
 /* } */
+
+button.dark {
+  color: var(--text-md-gray-dk);
+  border: none;
+  border-radius: 4px;
+  background-color: var(--background-md-gray-dk);
+}
 
 .footer {
   padding: 10px;

@@ -65,6 +65,17 @@
 		filteredData = data; // reset filteredData
 	}
 
+	// user clicks to clear out all filters for a given filterSet
+	const clearFilterSet = ({ name }) => {
+    filters[name] = [];
+	}
+
+	const clearAllFilters = () => {
+		Object.keys(filters).forEach(key => {
+      filters[key] = [];
+    });
+	}
+
 	// build the dataset to show based on user's filter selections
 	// if they don't choose any filters, show all the data
 	$: filteredData = data.filter(({ year, month }) => {
@@ -91,25 +102,28 @@
 		return +b.year - +a.year || +b.month - +a.month;
 	});
 
-	// TODO: need some sort of way to select an arbitrary tournament
-	//   to go to its detail style page?
 	// TODO: Make everything in the tables link to other pages
-	// TODO: Add "Clear All" buttons for each filterset to quickly
-	//   clear all options for that filter
 </script>
 
-<h2 class={$theme} on:click={toggleFiltersVisibility}>
-	<span>Apply Filters</span>
-	{#if filtersVisible}
-		<span>
-			<i key="down" class="fas fa-solid fa-angle-down"></i>
-		</span>
-	{:else}
-		<span>
-		  <i key="up" class="fas fa-solid fa-angle-up"></i>
-		</span>
-	{/if}
-</h2>
+<div class="header">
+	<h2 class={$theme} on:click={toggleFiltersVisibility}>
+		<span>Apply Filters</span>
+		{#if filtersVisible}
+			<span>
+				<i key="down" class="fas fa-solid fa-angle-down"></i>
+			</span>
+		{:else}
+			<span>
+				<i key="up" class="fas fa-solid fa-angle-up"></i>
+			</span>
+		{/if}
+	</h2>
+	<button
+	  class={$theme}
+	  on:click={clearAllFilters}>
+		Clear All
+	</button>
+</div>
 {#if filtersVisible}
 	<div class={`tournament-filter ${$theme}`} transition:slide>
 		{#each filterTypes as type}
@@ -119,6 +133,7 @@
 	      options={options[type]}
 	      selected={filters[type]}
 	      toggleOption={toggleOption}
+			  clearFilterSet={clearFilterSet}
 	    />
 		{/each}
   </div>
@@ -141,13 +156,21 @@
 	.tournament-list.dark, .tournament-filter.dark, h2.dark {
     color: var(--text-gray-dk);
 	}
-	h2 {
-		padding: 10px 0;
-		cursor: pointer;
+	.header {
 		display: flex;
 		align-items: center;
+		padding-right: 12px;
+	}
+	h2 {
+		padding: 10px 12px 10px 0;
+		cursor: pointer;
 	}
 	h2 span {
     padding-right: 5px;
+	}
+	button {
+		font-size: 12px;
+		margin-right: 12px;
+		padding: 5px;
 	}
 </style>

@@ -1,15 +1,9 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const resp = await fetch("http://localhost:3005/rikishi/list");
-		const rikishiList = await resp.json();
+		const resp = await fetch("/rikishi.json");
+		const { data } = await resp.json();
 
-	  if (resp.ok) {
-			return {
-				props: {
-					rikishiList,
-				}
-			};
-		}
+	  if (resp.ok) return { props: { data }};
 
 		return {
 		  status: resp.status,
@@ -19,16 +13,20 @@
 </script>
 
 <script>
-	export let rikishiList;
+	// import re-usable components and stores
+  import { theme } from "$lib/stores/theme.js";
+
+	export let data;
 
 	// also have sort options to sort by rank
 </script>
 
-<div class="rikishi-list">
+<div class={`rikishi-list ${$theme}`}>
   <ul>
-		{#each rikishiList.items as rikishi}
+		{#each data.items as rikishi}
 			<li>
 				<a
+			    class={$theme}
 			    sveltekit:prefetch
 			    href={`/rikishi/${rikishi.name}`}
 			  >
@@ -38,4 +36,24 @@
 		{/each}
 	</ul>
 </div>
+
+<style>
+	li {
+    padding: 15px;
+	}
+
+	a {
+    text-decoration: none;
+
+	}
+
+  /* dark theme */
+	.rikishi-list.dark {
+	}
+
+	a.dark {
+    color: var(--text-gray-dk);
+	}
+
+</style>
 

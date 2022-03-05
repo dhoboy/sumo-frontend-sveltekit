@@ -1,5 +1,6 @@
 <script>
 import { theme } from "$lib/stores/theme.js";
+import { fade } from "svelte/transition";
 
 /*
  *	Renders out a Table.
@@ -11,12 +12,13 @@ export let headers = [];
 // [ { name: "Takakeisho", ... }, ... ]
 export let data = [];
 
-// { colKey: "name", direction: "asc" }
+// { colKey: "name", direction: "asc", default: true }
 export let sort = {};
 
 const handleSortClick = ({ colKey }) => {
 	sort.colKey = colKey;
 	sort.direction = sort.direction === "asc" ? "desc" : "asc";
+	sort.default = false; // don't fade the user sorting
 }
 
 // sorts by strings and numbers; dates later...
@@ -30,7 +32,7 @@ $: displayData = data.sort((a, b) => {
 	const bVal = b[sortKey];
 
 	if (sortType === "string") {
-		return direction === "asc" ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+		return direction === "asc" ? aVal?.localeCompare(bVal) : bVal?.localeCompare(aVal);
 	} else if (sortType === "number") {
 		return direction === "asc" ? aVal - bVal : bVal - aVal;
 	}
@@ -62,13 +64,13 @@ $: displayData = data.sort((a, b) => {
 	</ul>
 	<!-- ROWS -->
 	<ul class="table-rows">
-		{#each displayData as item}
-			<li class="data-row">
+		{#each displayData as item (item.id)}
+			<li class="data-row" in:fade={{ duration: sort.default ? 500 : 0 }}>
 				{#each headers as {colKey}}
 					{#if colKey === "image"}
 					  <span>img here...</span>
 					{:else}
-						<div key={`${item.rikishi}-${colKey}`} class="data-entry">
+						<div class="data-entry">
 					    {item?.[colKey] || ""}
 					  </div>
 					{/if}

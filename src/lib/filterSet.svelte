@@ -18,7 +18,10 @@ export let options = [];
 export let selected = [];
 
 // function to call when user toggles an option
-export let toggleOption = () => {};
+export let toggleOption = ({ name, option }) => {};
+
+// function to call when a user clicks "Clear"
+export let clearFilterSet = ({ name }) => {};
 
 // maintains a local filtered-down copy of the options used with searchBar
 let filteredOptions = options;
@@ -32,6 +35,10 @@ const handleInput = () => {
 		filteredOptions = options.filter(opt => regex.test(opt));
 	}
 }
+const clearSearchBar = () => {
+  filteredOptionText = "";
+	filteredOptions = options;
+}
 </script>
 
 <div class="name-and-search-bar">
@@ -40,13 +47,21 @@ const handleInput = () => {
 		{name}
 	</h4>
 	{#if searchBar}
-		<input
-		  class={$theme}
-		  placeholder="Search..."
-		  bind:value={filteredOptionText}
-		  on:input={handleInput}
-		/>
+		<div class="search-bar">
+			<input
+		    class={$theme}
+		    placeholder="Search..."
+	      bind:value={filteredOptionText}
+	      on:input={handleInput}
+	    />
+			<span on:click={clearSearchBar}>x</span>
+		</div>
 	{/if}
+	<button
+	  class={$theme}
+	  on:click={() => clearFilterSet({ name })}>
+		Clear
+	</button>
 </div>
 <div class={`filter-set ${name}`}>
 	{#each filteredOptions as option}
@@ -63,6 +78,20 @@ const handleInput = () => {
     display: flex;
 		padding-top: 15px;
 	}
+
+	.search-bar {
+    position: relative;
+	}
+
+	.search-bar span {
+    position: absolute;
+		right: 20px;
+		top: 5px;
+		font-size: 14px;
+		cursor: pointer;
+		line-height: 1em;
+	}
+
 	h4.filter-name {
     text-transform: capitalize;
 		font-weight: bold;
@@ -71,21 +100,32 @@ const handleInput = () => {
 		display: flex;
 		align-items: center;
 	}
+
 	h4.filter-name .fa-circle {
 		font-size: 8px;
     padding-right: 12px;
 	}
+
 	input {
     height: fit-content;
-		padding: 5px;
+		padding: 5px 20px 5px 5px;
 		border-radius: 4px;
+		margin-right: 12px;
 	}
+
+	button {
+		font-size: 12px;
+		margin-right: 12px;
+		padding: 5px;
+	}
+
   .filter-set {
     display: flex;
 		flex-wrap: wrap;
 		max-height: 200px;
 		overflow: scroll;
 	}
+
 	.filter-set-tag {
 	  padding: 5px 10px;
 		margin: 10px;
@@ -93,10 +133,12 @@ const handleInput = () => {
 		border-radius: 4px;
 		user-select: none;
 	}
+
 	.filter-set-tag.selected {
     background-color: var(--selected-item);
 	}
 
+  /* dark theme */
 	input.dark {
 		color: var(--text-md-gray-dk);
 		border: 1px solid var(--text-gray-dk);

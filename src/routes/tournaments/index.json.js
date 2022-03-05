@@ -1,9 +1,14 @@
-import { getTournament } from './[year]/[month].json.js';
-
 /* Util functions */
 // callers await this and get the tournaments response
 export const getTournamentsList = async () => {
   const resp = await fetch("http://localhost:3005/tournament/list");
+	return resp.json();
+}
+
+// callers await this and get tournament summary
+export const getTournamentDetails = async ({ year, month }) => {
+	const url = `http://localhost:3005/tournament/details/${year}/${month}`;
+	const resp = await fetch(url);
 	return resp.json();
 }
 
@@ -13,13 +18,13 @@ export const getTournamentsData = async ({ tournamentsList = { items: [] } }) =>
 		return {
 			year,
 			month,
-			dataObj: await getTournament({ year, month }),
+			dataObj: await getTournamentDetails({ year, month }),
 		};
 	});
 	return Promise.all(calls);
 }
 
-// TODO: Update Backend to not return stuff like 'rank-value' to the JS frontend
+// TODO: Update Backend to not return keys named like 'rank-value' to the JS frontend
 export async function get() {
 	try {
 	  const tournamentsList = await getTournamentsList();
@@ -34,6 +39,7 @@ export async function get() {
 						month,
 						rikishiSummaries: (dataObj?.items || []).map(summary => {
 							return {
+								id: summary?.rikishi || Math.random().toString(36).slice(2),
 								rikishi: summary?.rikishi || "",
 								rank: summary?.rank || "",
 								rank_value: summary?.["rank-value"] || "",
