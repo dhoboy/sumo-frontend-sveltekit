@@ -5,8 +5,12 @@ import { fade } from "svelte/transition";
 /*
  *	Renders out a Table.
  */
-// [{ colKey: "rank", display: "Rank", sortKey: "rank_value", sortType: "number" ... }, ...]
-// sortKey defaults to colKey if one isn't passed in
+
+// [{ colKey: "rank",
+//    display: "Rank",
+//    imageKey: "image",     - optional, defaults to draw no image
+//    sortKey: "rank_value", - optional, defaults to colKey
+//    sortType: "number" }, ...]
 export let headers = [];
 
 // [ { name: "Takakeisho", ... }, ... ]
@@ -21,7 +25,7 @@ const handleSortClick = ({ colKey }) => {
 	sort.default = false; // don't fade the user sorting
 }
 
-// sorts by strings and numbers; dates later...
+// sorts by strings, numbers, and dates
 $: displayData = data.sort((a, b) => {
 	const { colKey, direction } = sort;
 	const header = headers.find(h => h.colKey === colKey);
@@ -35,6 +39,10 @@ $: displayData = data.sort((a, b) => {
 		return direction === "asc" ? aVal?.localeCompare(bVal) : bVal?.localeCompare(aVal);
 	} else if (sortType === "number") {
 		return direction === "asc" ? aVal - bVal : bVal - aVal;
+	} else if (sortType === "date") {
+		const aDate = new Date(aVal);
+		const bDate = new Date(bVal);
+		return direction === "asc" ? aDate - bDate : bDate - aDate;
 	}
 });
 
@@ -66,14 +74,17 @@ $: displayData = data.sort((a, b) => {
 	<ul class="table-rows">
 		{#each displayData as item (item.id)}
 			<li class="data-row" in:fade={{ duration: sort.default ? 500 : 0 }}>
-				{#each headers as {colKey}}
-					{#if colKey === "image"}
-					  <span>img here...</span>
-					{:else}
-						<div class="data-entry">
-					    {item?.[colKey] || ""}
-					  </div>
-					{/if}
+				{#each headers as {colKey, imageKey}}
+					<div class="data-entry">
+						{#if imageKey}
+							<div class="photo-entry">
+								<img class="img" src={item?.[imageKey]} />
+								<span>{item?.[colKey] || ""}</span>
+							</div>
+						{:else}
+						  {item?.[colKey] || ""}
+						{/if}
+					</div>
 				{/each}
 			</li>
 		{/each}
@@ -89,38 +100,66 @@ $: displayData = data.sort((a, b) => {
     margin: 0;
     padding: 0;
 	}
+
   .table-headers {
     display: table-header-group;
 		position: sticky;
 		top: 0;
 		background-color: #ccc; /* do light theme later ... */
   }
+
   .table-rows {
     display: table-row-group;
   }
+
   ul {
 		margin: 0;
 	}
+
   li.header-row, li.data-row {
     display: table-row;
 	}
+
 	.header-entry, .data-entry {
 		display: table-cell;
 		padding: 15px;
 		vertical-align: middle;
 		text-transform: capitalize;
 	}
+
 	.header-entry {
 		font-weight: bold;
 		border-bottom: 1px solid;
 	}
+
 	.header-entry span:first-child {
 		padding-right: 5px;
 	}
 
+	.photo-entry {
+    display: flex;
+		align-items: flex-start;
+	}
+
+	.photo-entry span {
+		margin: auto 0;
+		padding-left: 15px;
+	}
+
+	.img {
+		width: 60px;
+		height: 60px;
+		border-radius: 90px;
+		background-size: contain;
+		background-position: left;
+		border: 2px solid;
+	}
+
+  /* dark theme */
 	.table.dark {
     color: var(--text-gray-dk);
 	}
+
 	.table-headers.dark {
 		background-color: var(--header-dk);
 	}

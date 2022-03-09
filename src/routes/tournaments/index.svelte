@@ -151,7 +151,7 @@
 <style>
 	.tournament-list :global(.tournament-summary) {
 		max-height: 250px;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 	.tournament-list.dark, .tournament-filter.dark, h2.dark {
     color: var(--text-gray-dk);

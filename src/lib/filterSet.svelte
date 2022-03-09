@@ -5,7 +5,7 @@ import { theme } from "$lib/stores/theme.js";
  *  Renders out a group of filters
  */
 
-// filter name
+// optional filter set name to display
 export let name = "";
 
 // optional search bar to search the filter options
@@ -42,10 +42,12 @@ const clearSearchBar = () => {
 </script>
 
 <div class="name-and-search-bar">
-	<h4 class="filter-name">
-		<i class="fas fa-circle"></i>
-		{name}
-	</h4>
+	{#if name}
+		<h4 class="filter-name">
+			<i class="fas fa-circle"></i>
+			{name}
+		</h4>
+	{/if}
 	{#if searchBar}
 		<div class="search-bar">
 			<input
@@ -57,11 +59,11 @@ const clearSearchBar = () => {
 			<span on:click={clearSearchBar}>x</span>
 		</div>
 	{/if}
-	<button
-	  class={$theme}
-	  on:click={() => clearFilterSet({ name })}>
-		Clear
-	</button>
+	 <button
+	   class={$theme}
+	   on:click={() => clearFilterSet({ name })}>
+	   Clear
+	 </button>
 </div>
 <div class={`filter-set ${name}`}>
 	{#each filteredOptions as option}
@@ -123,7 +125,7 @@ const clearSearchBar = () => {
     display: flex;
 		flex-wrap: wrap;
 		max-height: 200px;
-		overflow: scroll;
+		overflow: auto;
 	}
 
 	.filter-set-tag {
@@ -144,9 +146,15 @@ const clearSearchBar = () => {
 		border: 1px solid var(--text-gray-dk);
 		background-color: var(--background-md-gray-dk);
 	}
+
 	input.dark::placeholder {
 		color: var(--text-md-gray-dk);
 	}
+
+	.filter-set-tag.dark {
+		color: var(--text-gray-dk);
+	}
+
 	.filter-set-tag.selected.dark {
 		color: var(--background-gray-dk);
 	}

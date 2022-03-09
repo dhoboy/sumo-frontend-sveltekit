@@ -90,6 +90,7 @@
 		cursor: pointer;
 		border-radius: 4px;
 		user-select: none;
+		text-align: center;
 	}
 
   /* dark theme */
