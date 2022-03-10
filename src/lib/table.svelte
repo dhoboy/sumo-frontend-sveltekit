@@ -8,8 +8,9 @@ import { fade } from "svelte/transition";
 
 // [{ colKey: "rank",
 //    display: "Rank",
-//    imageKey: "image",     - optional, defaults to draw no image
-//    sortKey: "rank_value", - optional, defaults to colKey
+//    imageKey: "image",           - optional, defaults to draw no image
+//    linkFn: (entry) => `/path/`, - optional, takes column value and returns anchor link
+//    sortKey: "rank_value",       - optional, defaults to colKey
 //    sortType: "number" }, ...]
 export let headers = [];
 
@@ -74,15 +75,17 @@ $: displayData = data.sort((a, b) => {
 	<ul class="table-rows">
 		{#each displayData as item (item.id)}
 			<li class="data-row" in:fade={{ duration: sort.default ? 500 : 0 }}>
-				{#each headers as {colKey, imageKey}}
+				{#each headers as {colKey, imageKey, linkFn}}
 					<div class="data-entry">
 						{#if imageKey}
-							<div class="photo-entry">
+							<a href={linkFn ? linkFn(item?.[colKey]): null} class={`photo-entry ${$theme}`} sveltekit:prefetch>
 								<img class="img" src={item?.[imageKey]} />
 								<span>{item?.[colKey] || ""}</span>
-							</div>
+							</a>
 						{:else}
-						  {item?.[colKey] || ""}
+							<a href={linkFn ? linkFn(item?.[colKey]): null} class={$theme} sveltekit:prefetch>
+								{item?.[colKey] || ""}
+							</a>
 						{/if}
 					</div>
 				{/each}
@@ -124,12 +127,18 @@ $: displayData = data.sort((a, b) => {
 		display: table-cell;
 		padding: 15px;
 		vertical-align: middle;
+	}
+
+	a {
 		text-transform: capitalize;
+		text-decoration: none;
+		width: fit-content;
 	}
 
 	.header-entry {
 		font-weight: bold;
 		border-bottom: 1px solid;
+		cursor: pointer;
 	}
 
 	.header-entry span:first-child {
@@ -156,7 +165,7 @@ $: displayData = data.sort((a, b) => {
 	}
 
   /* dark theme */
-	.table.dark {
+	.table.dark, a.dark {
     color: var(--text-gray-dk);
 	}
 

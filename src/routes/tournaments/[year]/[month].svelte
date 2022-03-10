@@ -42,8 +42,6 @@
 		default: true,       // false when user applies a sort
 	};
 
-	// TODO: Header should be active on tournament detail pages, not just tournament list
-	// TODO: Click stuff in the table to link to other pages
 	// TODO: update route with a /day part when you click to change the day
 	const setSelectedDay = ({ day }) => {
 	  selectedDay = day;

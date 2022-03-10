@@ -10,22 +10,22 @@
 <div class={$theme}>
 	<a href="/rikishi"
 	   sveltekit:prefetch
-		 class={pathname === "/rikishi" ? "active" : ""}>
+		 class={pathname.includes("/rikishi") ? "active" : ""}>
 		Rikishi
 	</a>
 	<a href="/tournaments"
 	   sveltekit:prefetch
-		 class={pathname === "/tournaments" ? "active" : ""}>
+		 class={pathname.includes("/tournaments") ? "active" : ""}>
 		Tournaments
 	</a>
 	<a href="/techniques"
 	   sveltekit:prefetch
-		 class={pathname === "/techniques" ? "active" : ""}>
+		 class={pathname.includes("/techniques") ? "active" : ""}>
 		Techniques
 	</a>
 	<a href="/matchups"
 		 sveltekit:prefetch
-		 class={pathname === "/matchups" ? "active" : ""}>
+		 class={pathname.includes("/matchups") ? "active" : ""}>
 		Matchups
 	</a>
 </div>

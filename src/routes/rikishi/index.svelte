@@ -17,6 +17,7 @@
   import { theme } from "$lib/stores/theme.js";
 	import FilterSet from "$lib/filterSet.svelte";
 	import Table from "$lib/table.svelte";
+	import { monthMap } from "$lib/utils.js"
 
 	export let data;
 	export let latestTournament;
@@ -26,6 +27,7 @@
 		display: "Rikishi",
 		sortType: "string",
 		imageKey: "imageUrl",
+		linkFn: (name) => `/rikishi/${name}`,
 	}, {
 		colKey: "rank",
 		display: "Rank",
@@ -36,6 +38,10 @@
 		display: "Last Tournament Active",
 		sortKey: "lastTournamentActive_date",
 		sortType: "date",
+		linkFn: (str) => {
+			const [month, year] = str.split(" ");
+			return `/tournaments/${year}/${monthMap?.[month]}`;
+		}
 	}];
 
 	let sort = {
@@ -104,18 +110,6 @@
 		}
 		return clause;
 	});
-
-	/* <a */
-	/* 		    class={$theme} */
-	/* 		    sveltekit:prefetch */
-	/* 		    href={`/rikishi/${rikishi.name}`} */
-	/* 		  > */
-	/* 			  {rikishi.name} */
-	/* 			</a> */
-	// add rank here?
-
-	// also have sort options to sort by rank
-
 </script>
 
 <div class="rikishi-search-and-filters">

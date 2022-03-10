@@ -12,7 +12,7 @@
 	export let rikishiSummaries;
 
 	let headers = [
-		{ colKey: "rikishi", display: "Rikishi", sortType: "string" },
+		{ colKey: "rikishi", display: "Rikishi", sortType: "string", linkFn: (name) => `/rikishi/${name}` },
 		{ colKey: "rank", display: "Rank", sortKey: "rank_value", sortType: "number" },
 		{ colKey: "wins", display: "Wins", sortType: "number" },
 		{ colKey: "losses", display: "Losses", sortType: "number" },
@@ -26,13 +26,15 @@
 </script>
 
 
+<h2>
 <a
 	class={$theme}
 	href={`/tournaments/${year}/${month}`}
 	sveltekit:prefetch
 >
- <h2>{monthMap[+month]} {year}</h2>
+ {monthMap[+month]} {year}
 </a>
+</h2>
 <div class="tournament-summary">
 	<Table
 	  headers={headers}
@@ -52,7 +54,6 @@
 		min-width: 150px;
 	}
 	a {
-		font-size: 22px;
 		text-decoration: none;
 	}
 	h2 {

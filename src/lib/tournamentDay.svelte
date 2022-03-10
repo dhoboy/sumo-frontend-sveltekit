@@ -11,17 +11,46 @@
 	export let data;
 	export let sort;
 
-	let headers = [
-		{ colKey: "east", display: "East", sortType: "string" },
-		{ colKey: "east_rank", display: "East Rank", sortKey: "east_rank_value", sortType: "number" },
-		{ colKey: "west", display: "West", sortType: "string" },
-		{ colKey: "west_rank", display: "West Rank", sortKey: "west_rank_value", sortType: "number" },
-		{ colKey: "winner", display: "Winner", sortType: "string" },
-		/* { colKey: "loser", display: "Loser", sortType: "string" }, */
-		{ colKey: "technique", display: "Technique", sortType: "string" },
-		{ colKey: "technique_en", display: "Technique Description", sortType: "string" },
-		{ colKey: "technique_category", display: "Technique Category", sortType: "string" },
+	let headers = [{
+		colKey: "east",
+		display: "East",
+		sortType: "string",
+		linkFn: (name) => `/rikishi/${name}`,
+	}, {
+		colKey: "east_rank",
+		display: "East Rank",
+		sortKey: "east_rank_value",
+		sortType: "number",
+	}, {
+		colKey: "west",
+		display: "West",
+		sortType: "string",
+		linkFn: (name) => `/rikishi/${name}`,
+	},{
+		colKey: "west_rank",
+		display: "West Rank",
+		sortKey: "west_rank_value",
+		sortType: "number",
+	}, {
+		colKey: "winner",
+		display: "Winner",
+		sortType: "string",
+		linkFn: (name) => `/rikishi/${name}`,
+	}, {
+		colKey: "technique",
+		display: "Technique",
+		sortType: "string",
+	}, {
+		colKey: "technique_en",
+		display: "Technique Description",
+		sortType: "string",
+	}, {
+		colKey: "technique_category",
+		display: "Technique Category",
+		sortType: "string"
+	},
 		/* { colKey: "is_playoff", display: "Playoff Match", sortType: "string" }, */
+		/* { colKey: "loser", display: "Loser", sortType: "string" }, */
 	];
 </script>
 
