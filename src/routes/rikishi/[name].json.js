@@ -23,7 +23,12 @@ export async function get(things) {
 				details: details.items?.[0],
 				currentRank: currentRank.items?.[0],
 				rankOverTime: rankOverTime.items,
-				resultsOverTime: resultsOverTime.items,
+				resultsOverTime: resultsOverTime.items.map(item => {
+          return {
+            ...item,
+						rank_value: item?.["rank-value"], // TODO: don't return keys with a `-` in them to frontend
+					};
+				}),
 				// techniqueBreakdown,
 			}
 	  }

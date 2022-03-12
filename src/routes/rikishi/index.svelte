@@ -215,7 +215,7 @@
 		color: var(--text-md-gray-dk);
 	}
 
-		.search-bar.dark span {
+	.search-bar.dark span {
 		color: var(--text-gray-dk);
 	}
 </style>
